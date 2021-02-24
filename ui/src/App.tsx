@@ -11,21 +11,31 @@ import { GraphQLResult } from "@aws-amplify/api-graphql";
 import awsconfig from "./aws-exports";
 Amplify.configure(awsconfig);
 
-interface MessageCardProps {
+interface MessageAlertProps {
   msg: Notification;
 }
 
 const Container = tw.div`container mx-auto w-full`;
-const MessageCard: React.FC<MessageCardProps> = ({ msg }) => {
+const MessageAlert: React.FC<MessageAlertProps> = ({ msg }) => {
   return (
+    <div role="alert">
+      <div tw="bg-blue-500 text-white font-bold rounded-t px-4 py-2">
+        {msg.title}
+      </div>
+      <div tw="border border-t-0 border-red-400 rounded-b bg-red-100 px-4 py-3 text-red-700">
+        <p>{msg.body}</p>
+      </div>
+    </div>
+  );
+};
+/*
     <div tw="max-w-lg w-full rounded overflow-hidden shadow-lg">
       <div tw="px-6 py-4 mb-4">
         <p tw="font-semibold text-lg text-blue-600 mb-2">{msg.title}</p>
         <p tw="text-gray-600 font-light text-base">{msg.body}</p>
       </div>
     </div>
-  );
-};
+    */
 
 const App = () => {
   const [authId, setAuthId] = useState("");
@@ -116,7 +126,7 @@ const App = () => {
         <ul>
           {messages.map((m, i) => (
             <li key={i} tw="mb-2">
-              <MessageCard msg={m} />
+              <MessageAlert msg={m} />
             </li>
           ))}
         </ul>
