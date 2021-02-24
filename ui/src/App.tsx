@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import "tailwindcss/dist/base.min.css";
 import tw from "twin.macro";
 import {
   Notification,
@@ -10,7 +11,21 @@ import { GraphQLResult } from "@aws-amplify/api-graphql";
 import awsconfig from "./aws-exports";
 Amplify.configure(awsconfig);
 
+interface MessageCardProps {
+  msg: Notification;
+}
+
 const Container = tw.div`container mx-auto w-full`;
+const MessageCard: React.FC<MessageCardProps> = ({ msg }) => {
+  return (
+    <div tw="max-w-lg w-full rounded overflow-hidden shadow-lg">
+      <div tw="px-6 py-4 mb-4">
+        <p tw="font-semibold text-lg text-blue-600 mb-2">{msg.title}</p>
+        <p tw="text-gray-600 font-light text-base">{msg.body}</p>
+      </div>
+    </div>
+  );
+};
 
 const App = () => {
   const [authId, setAuthId] = useState("");
@@ -101,7 +116,7 @@ const App = () => {
         <ul>
           {messages.map((m, i) => (
             <li key={i} tw="mb-2">
-              <span>{m.title}</span>
+              <MessageCard msg={m} />
             </li>
           ))}
         </ul>
