@@ -1,0 +1,30 @@
+# schemas/api.graphql
+
+type Notification {
+  id: ID!
+  authId: String!
+  submittedAt: AWSTimestamp
+  title: String!
+  body: String!
+  expiresAt: AWSTimestamp!
+}
+
+input NotificationInput {
+  authId: String!
+  title: String!
+  body: String!
+  expiresAt: AWSTimestamp
+}
+
+type Query {
+  listNotifications(authId: String!, since: AWSTimestamp): [Notification]
+}
+
+type Mutation {
+  addNotification(notification: NotificationInput!): Notification
+}
+
+type Subscription {
+  onNotification(authId: String!): Notification
+    @aws_subscribe(mutations: ["addNotification"])
+}
