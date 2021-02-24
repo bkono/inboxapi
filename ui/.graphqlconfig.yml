@@ -1,0 +1,15 @@
+projects:
+  InboxApi:
+    schemaPath: src/graphql/schema.json
+    includes:
+      - src/graphql/**/*.ts
+    excludes:
+      - ./amplify/**
+    extensions:
+      amplify:
+        codeGenTarget: typescript
+        generatedFileName: src/graphql/API.ts
+        docsFilePath: src/graphql
+        region: us-east-1
+        apiId: igbmakzwujgg3dsmkk2bbmeg7e
+        maxDepth: 2
